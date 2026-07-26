@@ -1,0 +1,76 @@
+---
+title: GET /pico-placa/check
+description: El endpoint principal — evalua si un vehiculo esta restringido.
+---
+
+Requiere [API key](/docs/authentication). Consume cuota y rate limit del plan — ver [Rate limits](/docs/rate-limits).
+
+## Parametros
+
+| Parametro | Requerido | Aplica a | Descripcion |
+|-----------|-----------|----------|-------------|
+| `city` | Si | Todos | Slug de la ciudad (ver `/pico-placa/cities`) |
+| `date` | No (default: hoy) | Todos | Fecha `YYYY-MM-DD` a evaluar |
+| `plate` | Si | `plate_digit_day` | Placa del vehiculo |
+| `label` | Si | `emission_label_zone` | Etiqueta ambiental (`b`, `c`, `eco`, `0`, `sin etiqueta`) |
+
+## Request
+
+<Tabs items={['curl', 'JavaScript', 'Python']}>
+<Tab value="curl">
+```bash
+curl "https://api.picoyplaca.com/v1/pico-placa/check?city=bogota&plate=ABC123&date=2026-07-28" \
+  -H "X-Api-Key: pyp_tu_key_aqui"
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+const res = await fetch(
+  "https://api.picoyplaca.com/v1/pico-placa/check?city=bogota&plate=ABC123&date=2026-07-28",
+  { headers: { "X-Api-Key": "pyp_tu_key_aqui" } }
+);
+const { data } = await res.json();
+console.log(data.restricted, data.reason);
+```
+</Tab>
+<Tab value="Python">
+```python
+import requests
+
+res = requests.get(
+    "https://api.picoyplaca.com/v1/pico-placa/check",
+    params={"city": "bogota", "plate": "ABC123", "date": "2026-07-28"},
+    headers={"X-Api-Key": "pyp_tu_key_aqui"},
+)
+data = res.json()["data"]
+print(data["restricted"], data["reason"])
+```
+</Tab>
+</Tabs>
+
+## Response `200`
+
+```json
+{
+  "success": true,
+  "data": {
+    "city": { "slug": "bogota", "name": "Bogota", "country": "Colombia", "timezone": "America/Bogota" },
+    "date": "2026-07-28",
+    "restriction_model": "plate_digit_day",
+    "restricted": true,
+    "reason": "Placa terminada en 3 restringida los tuesday",
+    "details": { "day": "tuesday", "last_digit": 3, "hours": { "start": "06:00", "end": "21:00" } },
+    "source_url": "https://www.bogota.gov.co/pico-y-placa",
+    "last_verified": "2026-07-25 22:54:19",
+    "disclaimer": "Informacion referencial verificada semanalmente por IA, no reemplaza la fuente oficial."
+  }
+}
+```
+
+## Errores especificos
+
+- `401` — API key ausente, invalida o revocada.
+- `402` `QUOTA_EXCEEDED` — cuota mensual agotada.
+- `404` — ciudad no encontrada o sin regla vigente.
+- `422` — `city` o `date` invalidos.
+- `429` — limite de rafaga excedido.

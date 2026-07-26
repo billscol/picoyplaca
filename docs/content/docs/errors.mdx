@@ -1,0 +1,47 @@
+---
+title: Errores
+description: Estructura de errores y codigos usados por la API.
+---
+
+## Forma general
+
+```json
+{
+  "success": false,
+  "error": "Mensaje legible en español"
+}
+```
+
+Errores de validacion (`422`) incluyen ademas `errors` por campo:
+
+```json
+{
+  "success": false,
+  "error": "Datos invalidos",
+  "errors": { "email": "El campo email debe ser un email valido" }
+}
+```
+
+## Codigos HTTP
+
+| Status | Significado |
+|--------|-------------|
+| `400` | Solicitud invalida |
+| `401` | Token o API key ausente, invalida, expirada o revocada |
+| `402` | Cuota mensual agotada (`QUOTA_EXCEEDED`) |
+| `403` | Sin permiso (ej. no-admin en endpoint `/admin/*`) |
+| `404` | Recurso no encontrado (ciudad, regla, usuario) |
+| `422` | Body invalido — ver `errors` |
+| `429` | Rate limit de rafaga excedido |
+| `500` | Error del servidor |
+
+## Codigos de negocio (campo `code`)
+
+| Code | Cuando ocurre |
+|------|----------------|
+| `QUOTA_EXCEEDED` | Se agoto la cuota mensual del plan (402) |
+| `PLAN_REQUIRED` | El plan actual no incluye la funcion solicitada (403) |
+
+## reuso de refresh token
+
+Si `/auth/refresh` detecta que el refresh token presentado ya fue usado antes (posible robo), responde `401` y revoca **todas** las sesiones activas del usuario — hay que iniciar sesion de nuevo desde cero.

@@ -1,0 +1,49 @@
+---
+title: GET /pico-placa/rules/{slug}
+description: Regla vigente completa de una ciudad, en formato legible.
+---
+
+Devuelve la regla vigente completa (no evaluada contra una placa/fecha especifica) — util para mostrar "la normativa completa de esta ciudad" en una pagina, a diferencia de `/check` que evalua un caso puntual.
+
+## Request
+
+```bash
+curl https://api.picoyplaca.com/v1/pico-placa/rules/bogota
+```
+
+## Response `200`
+
+```json
+{
+  "success": true,
+  "data": {
+    "city": {
+      "id": 1,
+      "country_code": "CO",
+      "country_name": "Colombia",
+      "city_name": "Bogota",
+      "slug": "bogota",
+      "timezone": "America/Bogota",
+      "restriction_model": "plate_digit_day"
+    },
+    "rule": {
+      "payload": {
+        "schedule": [
+          { "day": "monday", "digits": [1, 2], "hours": { "start": "06:00", "end": "21:00" } }
+        ],
+        "exceptions": ["electric", "hybrid", "motorcycle"],
+        "holidays_suspended": true
+      },
+      "effective_from": "2026-01-01",
+      "source_url": "https://www.bogota.gov.co/pico-y-placa",
+      "last_verified": "2026-07-25 22:54:19"
+    }
+  }
+}
+```
+
+`payload` cambia de forma segun `restriction_model` — ver [Modelos de restriccion](/docs/restriction-models) para las 3 variantes.
+
+## Response `404`
+
+Si el slug no existe o la ciudad no tiene ninguna regla vigente (recien agregada, aun no revisada).

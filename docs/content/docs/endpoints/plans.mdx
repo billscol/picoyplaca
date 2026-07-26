@@ -1,0 +1,50 @@
+---
+title: Planes
+description: Catalogo de planes y estado de suscripcion.
+---
+
+## `GET /billing/plans`
+
+Publico, sin autenticacion — usalo para renderizar tu propia pagina de precios.
+
+```bash
+curl https://api.picoyplaca.com/v1/billing/plans
+```
+
+```json
+{
+  "success": true,
+  "data": [
+    { "code": "free", "name": "Free", "price_monthly_usd": "0.00", "requests_month_quota": 500, "burst_per_minute": 10 },
+    { "code": "pro", "name": "Pro", "price_monthly_usd": "19.00", "requests_month_quota": 50000, "burst_per_minute": 60 },
+    { "code": "business", "name": "Business", "price_monthly_usd": "99.00", "requests_month_quota": -1, "burst_per_minute": 300 }
+  ]
+}
+```
+
+`requests_month_quota: -1` significa ilimitado.
+
+## `GET /billing/me`
+
+Requiere JWT de sesion. Devuelve el plan y estado de suscripcion del usuario autenticado.
+
+```bash
+curl https://api.picoyplaca.com/v1/billing/me \
+  -H "Authorization: Bearer <jwt_de_sesion>"
+```
+
+```json
+{
+  "success": true,
+  "data": {
+    "subscription_plan": "pro",
+    "subscription_status": "active",
+    "subscription_ends_at": "2026-08-24 22:54:06",
+    "billing_cycle": "monthly"
+  }
+}
+```
+
+<Callout title="Checkout de pago">
+  La integracion de cobro (Stripe global, Wompi/PayU LatAm) esta en desarrollo. Por ahora los cambios de plan los hace un administrador desde el panel admin.
+</Callout>

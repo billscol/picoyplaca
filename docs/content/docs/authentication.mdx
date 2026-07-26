@@ -1,0 +1,46 @@
+---
+title: Autenticacion
+description: API keys para consumo externo vs. sesion JWT para el dashboard.
+---
+
+La API usa **dos mecanismos de autenticacion distintos** segun quien consume el endpoint.
+
+## API keys — para consumir la API
+
+Es el mecanismo pensado para integraciones externas (tu backend, un bot, otro sitio). Se genera desde el dashboard (`/api-keys`) y se envia en cada request con uno de estos headers:
+
+```bash
+curl https://api.picoyplaca.com/v1/pico-placa/check?city=bogota&plate=ABC123 \
+  -H "X-Api-Key: pyp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+o equivalentemente:
+
+```bash
+curl https://api.picoyplaca.com/v1/pico-placa/check?city=bogota&plate=ABC123 \
+  -H "Authorization: Bearer pyp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+<Callout title="Guarda la key ahora" type="warn">
+  El valor completo de la key solo se muestra **una vez**, al crearla (`POST /api-keys`). Despues de eso solo se puede ver el prefijo (`pyp_ab12...`). Si la pierdes, crea una nueva y revoca la anterior.
+</Callout>
+
+Cada API key hereda el plan del usuario que la creo — el limite de cuota y de rafaga (ver [Rate limits](/docs/rate-limits)) se aplica por key, no por usuario.
+
+## JWT de sesion — para el dashboard
+
+Los endpoints de `/auth/*`, `/api-keys` (gestion) y `/billing/me` usan un access token JWT de corta duracion (15 min) mas un refresh token en cookie httpOnly. Este mecanismo es para el frontend del dashboard/admin, **no** para integraciones externas.
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"tu@email.com","password":"tu-password"}'
+```
+
+La respuesta incluye `token` (Bearer, 15 min) y setea la cookie `pyp_refresh_token`. Renovar con:
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/refresh -b cookies.txt -c cookies.txt
+```
+
+El refresh token rota en cada uso y detecta reuso: si se presenta un token ya usado (posible robo), se revocan todas las sesiones del usuario.

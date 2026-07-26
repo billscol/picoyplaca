@@ -1,0 +1,65 @@
+---
+title: Modelos de restriccion
+description: Por que la forma de la respuesta cambia segun la ciudad.
+---
+
+No todas las ciudades restringen la circulacion de la misma manera, asi que la API no asume un unico formato. Cada ciudad tiene un `restriction_model` que determina que parametros acepta `GET /pico-placa/check` y que forma tiene `details` en la respuesta.
+
+## `plate_digit_day` — pico y placa clasico
+
+Restriccion por el ultimo digito de la placa segun el dia de la semana. Usado en Bogota, Medellin, Quito, Lima, San Jose, Ciudad de Mexico, etc.
+
+**Parametros relevantes:** `plate`, `date`
+
+```json
+{
+  "restricted": true,
+  "reason": "Placa terminada en 3 restringida los tuesday",
+  "details": {
+    "day": "tuesday",
+    "last_digit": 3,
+    "hours": { "start": "06:00", "end": "21:00" },
+    "exceptions": ["electric", "hybrid", "motorcycle"],
+    "holidays_suspended": true
+  }
+}
+```
+
+## `emission_label_zone` — zona de bajas emisiones (ZBE)
+
+Restriccion por etiqueta ambiental del vehiculo, no por placa. Usado en Madrid Central, Barcelona ZBE, etc.
+
+**Parametros relevantes:** `label` (`b`, `c`, `eco`, `0`, `sin etiqueta`), `date`
+
+```json
+{
+  "restricted": true,
+  "reason": "Etiqueta 'sin etiqueta' no permitida en Madrid Central",
+  "details": {
+    "zone_name": "Madrid Central",
+    "hours": { "start": "00:00", "end": "23:59" }
+  }
+}
+```
+
+## `congestion_charge` — peaje de congestion
+
+No prohibe circular, cobra una tarifa por entrar a la zona en horario tarifado (ej. NYC Congestion Pricing). Aqui `restricted: true` significa "aplica el cobro", no una prohibicion.
+
+**Parametros relevantes:** `date`
+
+```json
+{
+  "restricted": true,
+  "reason": "Aplica tarifa de congestion en Manhattan CBD ($9 USD)",
+  "details": {
+    "zone_name": "Manhattan CBD",
+    "fee_usd": 9,
+    "hours": { "start": "05:00", "end": "21:00" }
+  }
+}
+```
+
+<Callout title="Consulta el modelo antes de armar tu integracion">
+  `GET /pico-placa/cities` devuelve el `restriction_model` de cada ciudad — usalo para decidir que parametros enviar antes de llamar a `/check`.
+</Callout>

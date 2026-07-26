@@ -1,0 +1,45 @@
+---
+title: GET /pico-placa/cities
+description: Lista de ciudades con cobertura actual.
+---
+
+Devuelve el catalogo de ciudades activas. No requiere autenticacion — pensado para poblar selectores en tu UI antes de llamar a `/check`.
+
+## Request
+
+```bash
+curl https://api.picoyplaca.com/v1/pico-placa/cities
+```
+
+## Response `200`
+
+```json
+{
+  "success": true,
+  "message": "OK",
+  "data": [
+    {
+      "id": 1,
+      "country_code": "CO",
+      "country_name": "Colombia",
+      "city_name": "Bogota",
+      "slug": "bogota",
+      "timezone": "America/Bogota",
+      "restriction_model": "plate_digit_day"
+    },
+    {
+      "id": 2,
+      "country_code": "ES",
+      "country_name": "Espana",
+      "city_name": "Madrid",
+      "slug": "madrid",
+      "timezone": "Europe/Madrid",
+      "restriction_model": "emission_label_zone"
+    }
+  ]
+}
+```
+
+Usa `slug` como valor del parametro `city` en `/pico-placa/check` y `/pico-placa/rules/{slug}`. `restriction_model` te dice que parametros adicionales enviar — ver [Modelos de restriccion](/docs/restriction-models).
+
+<Callout title="Cache">Respuesta cacheada 1h server-side. Se invalida automaticamente al aprobarse o agregarse una ciudad.</Callout>

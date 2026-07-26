@@ -1,0 +1,21 @@
+{
+    "name": "picoyplaca/api",
+    "description": "API de restricciones vehiculares (pico y placa, ZBE, peajes de congestion) para LatAm, USA y Espana",
+    "type": "project",
+    "require": {
+        "php": "^8.3",
+        "firebase/php-jwt": "^7.0",
+        "predis/predis": "^2.2",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "PicoPlaca\\Core\\": "core/",
+            "PicoPlaca\\App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}

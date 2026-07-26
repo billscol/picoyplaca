@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "title": "Pico y Placa Global — Vehicle restriction lookup",
+    "description": "Check vehicle circulation restrictions, low emission zones and congestion charges across LatAm, USA and Spain."
+  },
+  "nav": {
+    "home": "Home",
+    "cities": "Cities",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "login": "Log in",
+    "register": "Sign up",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "eyebrow": "Based on official sources",
+    "title": "Vehicle restrictions across LatAm, USA and Spain in one API",
+    "subtitle": "Plate-based restrictions, low emission zones and congestion charges, based on each city's official sources.",
+    "cta_primary": "See available cities",
+    "cta_secondary": "API documentation"
+  },
+  "how_it_works": {
+    "title": "One data model, three restriction types",
+    "subtitle": "Each city is modeled according to its own vehicle-restriction schema.",
+    "plate_digit_day_desc": "Circulation restricted by the last digit of the plate, per day and time window. The classic plate-restriction model across LatAm.",
+    "emission_label_zone_desc": "Zones where only vehicles with a given environmental label may drive, like Spain's LEZ (ZBE).",
+    "congestion_charge_desc": "A fee to drive within a zone during set hours, independent of the vehicle's plate or label."
+  },
+  "cities_section": {
+    "title": "Available cities",
+    "subtitle": "With a direct link to each city's official source.",
+    "cta": "See all cities"
+  },
+  "final_cta": {
+    "title": "Integrate vehicle restrictions into your product",
+    "subtitle": "Start free, scale when you need to.",
+    "cta_primary": "See plans",
+    "cta_secondary": "Create account"
+  },
+  "cities": {
+    "title": "Available cities",
+    "subtitle": "Current coverage — more cities added every week.",
+    "filter_all": "All",
+    "api_error": "Could not connect to the API. Check that the backend is running.",
+    "restriction_model": {
+      "plate_digit_day": "Plate-digit restriction",
+      "emission_label_zone": "Low emission zone",
+      "congestion_charge": "Congestion charge"
+    },
+    "meta": {
+      "title": "Cities with plate restrictions, low emission zones and congestion charges",
+      "description": "Explore current plate-based restrictions, low emission zones and congestion charges by city across LatAm, USA and Spain."
+    }
+  },
+  "city_page": {
+    "meta": {
+      "title_active": "Plate restriction in {city} today: days, digits and hours",
+      "title_none": "Plate restriction in {city}: no restriction in force",
+      "description_active": "Which days can't your car drive in {city}? Check the restricted plate digits, hours and exceptions currently in force.",
+      "description_none": "{city} currently has no plate-based restriction for private vehicles. Learn since when and what the official rule says."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "cities": "Cities"
+    },
+    "labels": {
+      "last_verified": "Last verified: {date}",
+      "effective_from": "In force since {date}",
+      "source_link": "See official source",
+      "schedule_title": "Restriction zones and schedule",
+      "exceptions_title": "Exempt vehicles",
+      "holidays_suspended": "Does not apply on public holidays.",
+      "holidays_active": "Also applies on public holidays, unless the official source states otherwise.",
+      "hours": "{start} – {end}",
+      "faq_title": "Frequently asked questions about {city}",
+      "digit_position_first": "By the first digit",
+      "see_detail": "See detail"
+    },
+    "categories": {
+      "particulares": "Private vehicles",
+      "motos": "Motorcycles",
+      "taxis": "Taxis",
+      "transporte_publico_colectivo": "Public transport",
+      "transporte_carga": "Freight transport",
+      "transporte_especial": "Special transport",
+      "regional": "Regional"
+    },
+    "today": {
+      "restricted": "Restricted today",
+      "free": "No restriction today",
+      "digits_label": "Plates ending in",
+      "all_day": "All day"
+    },
+    "legal": {
+      "title": "Penalties",
+      "fine_label": "Fine",
+      "fine_value": "15 SMLDV",
+      "consequence": "Vehicle impoundment",
+      "citation": "Art. 131-C.14, Law 769 of 2002 (amended by art. 21, Law 1383 of 2010)."
+    },
+    "contact": {
+      "title": "Official channels",
+      "intro": "You can direct your questions to {city}'s official channels:",
+      "twitter": "Twitter / X",
+      "facebook": "Facebook",
+      "website": "Website",
+      "email": "Email",
+      "feedback": "Something not right?",
+      "feedback_cta": "Help us improve this page"
+    },
+    "region": {
+      "title": "Location",
+      "body": "{city} — {region}, {country}",
+      "siblings_title": "Other cities with the same measure"
+    },
+    "lookup": {
+      "title": "When is my plate restricted?",
+      "subtitle": "Pick the last digit of your plate",
+      "subtitle_first": "Pick the first digit of your plate",
+      "free_headline": "You can drive without restriction",
+      "digit_label": "Plate ending in {digit}",
+      "placeholder": "Pick a digit to see your schedule."
+    },
+    "plate_digit_day": {
+      "intro_active": "In {city}, the plate restriction limits private vehicle circulation based on the last digit of the plate. Vehicles ending in {digitsToday} currently cannot drive on {days}, between {hours}.",
+      "intro_none": "{city} currently has no plate-based restriction in force for private vehicles. {note}",
+      "faq_digit_question": "Which days can't a car with a plate ending in {digit} drive in {city}?",
+      "faq_digit_answer": "In {city}, vehicles ending in {digit} cannot drive on {days}, between {hours}.",
+      "faq_hours_question": "What are the plate-restriction hours in {city}?",
+      "faq_hours_answer": "The restriction in {city} applies {days}, between {hours}.",
+      "faq_exceptions_question": "Which vehicles are exempt from the restriction in {city}?",
+      "faq_exceptions_answer": "Exempt from the restriction: {exceptions}.",
+      "faq_exceptions_answer_none": "The official source doesn't report general exceptions for {city}; check case by case with the official source.",
+      "faq_holidays_question": "Does the restriction apply on public holidays in {city}?",
+      "faq_holidays_answer_suspended": "No. In {city} the restriction is suspended on public holidays.",
+      "faq_holidays_answer_active": "The official source doesn't confirm a general holiday suspension for {city} — verify before a specific holiday.",
+      "faq_none_question": "Why is there no plate restriction in {city}?",
+      "faq_none_answer": "{note}",
+      "none_note": "The restriction for private vehicles was repealed. Check the official source for the details of the current rule."
+    },
+    "emission_label_zone": {
+      "intro": "{city} enforces a low emission zone ({zoneName}): vehicles with a {restrictedLabels} label cannot drive within the zone, {hours}.",
+      "faq_labels_question": "Which environmental labels are restricted in {zoneName}, {city}?",
+      "faq_labels_answer": "Vehicles with a {restrictedLabels} label cannot drive. Vehicles with a {allowedLabels} label can.",
+      "faq_hours_question": "What hours does the restriction apply in {zoneName}?",
+      "faq_hours_answer": "The restriction applies {hours}."
+    },
+    "congestion_charge": {
+      "intro": "{city} charges a congestion fee of {fee} in the {zoneName} zone, in force {hours}.",
+      "faq_fee_question": "How much is the congestion charge in {city}?",
+      "faq_fee_answer": "The congestion charge in {zoneName}, {city}, costs {fee}, {hours}."
+    },
+    "vehicle_scope": {
+      "question": "Does this information apply to motorcycles and taxis?",
+      "answer": "Not necessarily — this data covers private vehicles. Motorcycles, taxis and public-service vehicles usually have different hours and exceptions; always confirm with {city}'s official source."
+    },
+    "exceptions": {
+      "electric": "electric vehicles",
+      "hybrid": "hybrid vehicles",
+      "motorcycle": "motorcycles",
+      "cng": "compressed natural gas (CNG) vehicles",
+      "public_service": "public-service vehicles",
+      "disability": "vehicles carrying drivers or passengers with disabilities"
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "What people ask us most about the service.",
+    "items": [
+      {
+        "question": "What is a plate-based driving restriction?",
+        "answer": "It's a restriction on private vehicle circulation based on the last digit of the plate, applied by city on specific days and hours to reduce traffic and pollution."
+      },
+      {
+        "question": "How is the data kept up to date?",
+        "answer": "We periodically review each city's official sources. Changes go through review before publishing — nothing updates without verification."
+      },
+      {
+        "question": "Does this replace the official source?",
+        "answer": "No. This is reference information. We always include a link to each city's official source so you can verify it directly."
+      },
+      {
+        "question": "Can I use the API for free?",
+        "answer": "Yes, the free plan includes a limited number of monthly requests so you can try the API before scaling to a paid plan."
+      },
+      {
+        "question": "Which cities and restriction models do you cover?",
+        "answer": "We cover plate-digit restrictions, low emission zones (LEZ) and congestion charges, with growing coverage across LatAm, USA and Spain."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Plans",
+    "subtitle": "Free to start, scale when you need to.",
+    "month": "/mo",
+    "cta": "Get started",
+    "featured": "Most popular",
+    "unlimited_requests": "Unlimited requests",
+    "requests_per_month": "{count} requests/mo",
+    "requests_per_minute": "{count} req/min"
+  },
+  "auth": {
+    "login_title": "Log in",
+    "register_title": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "submit_login": "Log in",
+    "submit_register": "Create account",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "usage_title": "Plan usage",
+    "api_keys_title": "API Keys",
+    "create_key": "Create API key",
+    "key_name_placeholder": "Key name",
+    "revoke": "Revoke",
+    "plan_title": "Your plan"
+  },
+  "footer": {
+    "disclaimer": "Reference information. Does not replace each city's official source."
+  }
+}

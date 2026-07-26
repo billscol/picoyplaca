@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-vermillion: var(--vermillion);
+  --color-magenta-pop: var(--magenta-pop);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  /* Craftwork — atelier de luz con un solo acento verde acido */
+  --background: #f9f9f9; /* Paper */
+  --foreground: #000000; /* Ink Black */
+  --card: #ffffff; /* Snow */
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+
+  /* Acid Green — unico acento de marca */
+  --primary: #cafc00;
+  --primary-foreground: #000000;
+
+  --secondary: #f2f2f2; /* Fog */
+  --secondary-foreground: #000000;
+  --muted: #f2f2f2; /* Fog */
+  --muted-foreground: #606060; /* Graphite */
+
+  /* Neutro — NO usar vermillion/magenta aqui, son decorativos, no de estado/superficie */
+  --accent: #f2f2f2;
+  --accent-foreground: #000000;
+
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --border: #dee0e3; /* Hairline */
+  --input: #dee0e3;
+  --ring: #cafc00;
+
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+
+  /* Acentos decorativos — solo iconografia/ilustracion, nunca fondos a escala */
+  --vermillion: #f54911;
+  --magenta-pop: #c42df9;
+
+  --radius: 0.625rem; /* 10px — coincide con el radio de tarjetas Craftwork */
+
+  /* Sombras Craftwork — elevacion "papel", nunca dramatica */
+  --shadow-subtle: rgba(47, 43, 67, 0.1) 0px -1px 0px 0px inset, rgba(47, 43, 67, 0.1) 0px 1px 3px 0px;
+  --shadow-xl: rgba(0, 0, 0, 0.04) 0px 8px 40px 0px, rgba(0, 0, 0, 0.03) 0px 2px 12px 0px;
+  --shadow-hover: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.16) 0px 10px 20px 0px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Washes decorativos de fondo — solo sobre Paper, nunca sobre tarjetas/texto. Ver seccion
+     "Gradient System" del style guide Craftwork. */
+  .bg-hero-wash {
+    background-image:
+      radial-gradient(80% 60% at 55% 0%, rgba(180, 235, 160, 0.5), transparent 70%),
+      radial-gradient(60% 50% at 8% 15%, rgba(196, 45, 249, 0.06), transparent 70%),
+      radial-gradient(55% 45% at 95% 10%, rgba(245, 73, 17, 0.05), transparent 70%);
+  }
+
+  .bg-section-wash {
+    background-image: radial-gradient(70% 90% at -5% 30%, rgba(180, 235, 160, 0.35), transparent 70%);
+  }
+
+  .card-hover-lift {
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-ring {
+    animation: none;
+  }
+}

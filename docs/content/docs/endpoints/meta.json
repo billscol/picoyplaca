@@ -1,0 +1,4 @@
+{
+  "title": "Endpoints",
+  "pages": ["cities", "rules", "check", "api-keys", "plans", "auth"]
+}

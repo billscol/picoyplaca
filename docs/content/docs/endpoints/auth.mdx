@@ -1,0 +1,57 @@
+---
+title: Autenticacion de usuario
+description: Registro, login, refresh y logout para el dashboard.
+---
+
+Estos endpoints crean y gestionan la sesion de un **usuario** (dueño de API keys), no autentican requests a `/pico-placa/*`. Para eso ver [API keys](/docs/endpoints/api-keys).
+
+## `POST /auth/register`
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Tu Nombre","email":"tu@email.com","password":"minimo8caracteres"}'
+```
+
+Devuelve el mismo shape que `/auth/login` (token + user), ya autenticado.
+
+## `POST /auth/login`
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"tu@email.com","password":"tu-password"}' \
+  -c cookies.txt
+```
+
+```json
+{
+  "success": true,
+  "data": {
+    "token": "eyJ...",
+    "expires_in": 900,
+    "token_type": "Bearer",
+    "user": { "id": 2, "email": "tu@email.com", "name": "Tu Nombre", "plan": "free", "is_admin": false }
+  }
+}
+```
+
+Rate limit estricto: 5 intentos / 5 minutos por IP.
+
+## `POST /auth/refresh`
+
+Rota el refresh token (cookie `pyp_refresh_token`) y emite un nuevo access token.
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/refresh -b cookies.txt -c cookies.txt
+```
+
+## `POST /auth/logout`
+
+Revoca el refresh token actual y agrega el access token a la blacklist hasta su expiracion natural.
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/auth/logout \
+  -H "Authorization: Bearer <jwt_de_sesion>" \
+  -b cookies.txt
+```

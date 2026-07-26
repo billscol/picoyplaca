@@ -1,0 +1,52 @@
+---
+title: Rate limits y cuotas
+description: Limites de rafaga por minuto y cuota mensual segun el plan.
+---
+
+Cada API key tiene dos limites independientes, segun el plan del usuario:
+
+| Plan | Cuota mensual | Rafaga (req/min) |
+|------|---------------|-------------------|
+| Free | 500 | 10 |
+| Pro | 50,000 | 60 |
+| Business | Ilimitada | 300 |
+
+## Headers de respuesta
+
+Toda respuesta autenticada con API key incluye:
+
+```
+X-RateLimit-Limit: 10
+X-RateLimit-Remaining: 9
+X-RateLimit-Reset: 1785020084
+```
+
+## Al exceder la rafaga (429)
+
+```json
+{
+  "success": false,
+  "error": "Demasiadas solicitudes. Reduce la frecuencia."
+}
+```
+
+Con header `Retry-After` indicando segundos hasta que se libere.
+
+## Al agotar la cuota mensual (402)
+
+```json
+{
+  "success": false,
+  "error": "Has agotado tu cuota de requests para este periodo",
+  "code": "QUOTA_EXCEEDED",
+  "limit": 500,
+  "period": "2026-07",
+  "upgrade_url": "/planes"
+}
+```
+
+La cuota se reinicia al inicio de cada mes calendario. Ver [Planes](/docs/endpoints/plans) para actualizar.
+
+## Cacheo
+
+Las respuestas de `/pico-placa/check`, `/pico-placa/cities` y `/pico-placa/rules/{slug}` se cachean server-side hasta 24h (invalidado automaticamente cuando se aprueba un cambio de regla) — las reglas rara vez cambian intra-dia, asi que no hace falta hacer polling agresivo.

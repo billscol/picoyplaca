@@ -1,0 +1,65 @@
+---
+title: Introduccion
+description: Que es la API de Pico y Placa Global y como empezar a usarla.
+---
+
+## Que es esto
+
+La API de Pico y Placa Global devuelve el estado de restriccion vehicular vigente (pico y placa por digito de placa, zonas de bajas emisiones, peajes de congestion) para ciudades de LatAm, USA y España. Los datos se verifican semanalmente por un agente de IA a partir de fuentes oficiales y pasan por revision humana antes de publicarse — ver [Modelos de restriccion](/docs/restriction-models).
+
+<Callout title="Uso referencial" type="warn">
+  La informacion es referencial y se actualiza semanalmente. No reemplaza la fuente oficial de cada ciudad — cada respuesta incluye `source_url` y `last_verified` para que puedas verificar.
+</Callout>
+
+## URL base
+
+```
+https://api.picoyplaca.com/v1
+```
+
+En desarrollo local:
+
+```
+http://localhost:8000/v1
+```
+
+## Quickstart
+
+1. Crea una cuenta y una API key desde el [dashboard](http://localhost:3010/register).
+2. Consulta las ciudades disponibles (no requiere autenticacion):
+
+```bash
+curl https://api.picoyplaca.com/v1/pico-placa/cities
+```
+
+3. Consulta si un vehiculo esta restringido (requiere API key):
+
+```bash
+curl "https://api.picoyplaca.com/v1/pico-placa/check?city=bogota&plate=ABC123&date=2026-07-28" \
+  -H "X-Api-Key: pyp_tu_key_aqui"
+```
+
+Respuesta:
+
+```json
+{
+  "success": true,
+  "data": {
+    "city": { "slug": "bogota", "name": "Bogota", "country": "Colombia", "timezone": "America/Bogota" },
+    "date": "2026-07-28",
+    "restriction_model": "plate_digit_day",
+    "restricted": true,
+    "reason": "Placa terminada en 3 restringida los tuesday",
+    "details": { "day": "tuesday", "last_digit": 3, "hours": { "start": "06:00", "end": "21:00" } },
+    "source_url": "https://www.bogota.gov.co/pico-y-placa",
+    "last_verified": "2026-07-25 22:54:19",
+    "disclaimer": "Informacion referencial verificada semanalmente por IA, no reemplaza la fuente oficial."
+  }
+}
+```
+
+## Siguientes pasos
+
+- [Autenticacion](/docs/authentication) — como funcionan las API keys y el rate limiting por plan.
+- [Modelos de restriccion](/docs/restriction-models) — por que la forma de la respuesta cambia segun la ciudad.
+- [Endpoints](/docs/endpoints) — referencia completa.

@@ -1,0 +1,34 @@
+services:
+  api:
+    image: php:8.3-cli
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mariadb
+      REDIS_HOST: redis
+    depends_on:
+      - mariadb
+      - redis
+    command: >
+      sh -c "apt-get update -qq && apt-get install -y -qq unzip git libzip-dev >/dev/null &&
+             docker-php-ext-install pdo_mysql zip >/dev/null &&
+             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+             composer install --no-interaction &&
+             php -S 0.0.0.0:8000 -t public"
+
+  mariadb:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: picoyplaca
+    volumes:
+      - picoyplaca_db:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  picoyplaca_db:

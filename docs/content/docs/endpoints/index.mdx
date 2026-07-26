@@ -1,0 +1,16 @@
+---
+title: Referencia
+description: Todos los endpoints disponibles, agrupados por recurso.
+---
+
+| Endpoint | Auth | Descripcion |
+|----------|------|-------------|
+| `GET /pico-placa/cities` | Ninguna | [Lista de ciudades disponibles](/docs/endpoints/cities) |
+| `GET /pico-placa/rules/{slug}` | Ninguna | [Regla vigente legible de una ciudad](/docs/endpoints/rules) |
+| `GET /pico-placa/check` | API key | [Consulta si un vehiculo esta restringido](/docs/endpoints/check) |
+| `GET /api-keys` · `POST /api-keys` · `DELETE /api-keys/{id}` | JWT sesion | [Gestion de API keys](/docs/endpoints/api-keys) |
+| `GET /billing/plans` | Ninguna | [Catalogo de planes](/docs/endpoints/plans) |
+| `GET /billing/me` | JWT sesion | Plan y estado de suscripcion del usuario actual |
+| `POST /auth/register` · `/login` · `/refresh` · `/logout` | Varia | [Autenticacion de usuario](/docs/endpoints/auth) |
+
+Todas las respuestas exitosas tienen la forma `{ "success": true, "data": ... }`. Ver [Errores](/docs/errors) para el formato de fallos.

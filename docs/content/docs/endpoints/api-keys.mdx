@@ -1,0 +1,54 @@
+---
+title: API Keys
+description: Crear, listar y revocar API keys desde el dashboard.
+---
+
+Requieren JWT de sesion (login en el dashboard), no API key — son endpoints de gestion, no de consumo.
+
+## `GET /api-keys`
+
+Lista las keys del usuario autenticado (sin exponer el valor completo, solo `key_prefix`).
+
+```bash
+curl https://api.picoyplaca.com/v1/api-keys \
+  -H "Authorization: Bearer <jwt_de_sesion>"
+```
+
+```json
+{
+  "success": true,
+  "data": [
+    { "id": 1, "name": "produccion", "key_prefix": "pyp_6d3099a0", "revoked": 0, "last_used_at": "2026-07-25 22:53:44", "created_at": "2026-07-25 22:53:34" }
+  ]
+}
+```
+
+## `POST /api-keys`
+
+```bash
+curl -X POST https://api.picoyplaca.com/v1/api-keys \
+  -H "Authorization: Bearer <jwt_de_sesion>" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"produccion"}'
+```
+
+```json
+{
+  "success": true,
+  "message": "API key creada. Guarda el valor, no se volvera a mostrar.",
+  "data": { "id": 1, "raw_key": "pyp_6d3099a07c87fd9474b284a9305378cd825db438712bb297" }
+}
+```
+
+<Callout title="raw_key solo se muestra una vez" type="warn">
+  Guardalo de inmediato. La API solo almacena el hash — no hay forma de recuperarlo despues.
+</Callout>
+
+## `DELETE /api-keys/{id}`
+
+Revoca una key (no la borra, queda marcada como `revoked` para trazabilidad).
+
+```bash
+curl -X DELETE https://api.picoyplaca.com/v1/api-keys/1 \
+  -H "Authorization: Bearer <jwt_de_sesion>"
+```

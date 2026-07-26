@@ -1,0 +1,11 @@
+{
+  "title": "Pico y Placa API",
+  "pages": [
+    "index",
+    "authentication",
+    "restriction-models",
+    "rate-limits",
+    "errors",
+    "endpoints"
+  ]
+}
