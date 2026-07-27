@@ -34,12 +34,12 @@ function ChannelLink({
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="group flex items-center gap-3 rounded-lg px-2 py-1.5 -mx-2 transition-colors hover:bg-secondary"
+      className="group flex items-center gap-3 rounded-xl px-2.5 py-2 -mx-2.5 transition-colors hover:bg-secondary"
     >
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-muted-foreground transition-transform duration-200 group-hover:scale-110 group-hover:text-foreground">
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondary text-foreground transition-transform duration-200 group-hover:scale-110">
         {icon}
       </span>
-      <span className="truncate text-sm">{label}</span>
+      <span className="truncate text-sm font-medium">{label}</span>
     </a>
   );
 }
@@ -49,19 +49,18 @@ export function CityContactSection({ city, t }: { city: City; t: Translator }) {
   const hasChannels = Boolean(channels?.twitter_url || channels?.facebook_url || channels?.website_url || channels?.email);
 
   return (
-    <Card className="card-hover-lift animate-in fade-in slide-in-from-bottom-4 border-border delay-100 duration-500 fill-mode-both">
+    <Card className="card-hover-lift animate-in fade-in slide-in-from-bottom-4 border-2 border-foreground/8 delay-100 duration-500 fill-mode-both">
       <CardHeader>
-        <div className="flex items-center gap-2.5">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
-            <Headset className="size-4" />
+        <div className="flex items-center gap-3">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-magenta-pop/12 text-magenta-pop">
+            <Headset className="size-5" />
           </span>
-          <CardTitle>{t("contact.title")}</CardTitle>
+          <CardTitle className="text-base font-bold">{t("contact.title")}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {hasChannels && (
           <>
-            <p className="text-sm text-muted-foreground">{t("contact.intro", { city: city.city_name })}</p>
             <div className="space-y-1">
               {channels?.twitter_url && (
                 <ChannelLink href={channels.twitter_url} icon={<XIcon className="size-4" />} label={t("contact.twitter")} />

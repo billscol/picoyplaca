@@ -10,7 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/login",
         "/registro",
-        "/register",
         "/dashboard",
         "/api-keys",
         "/planes",

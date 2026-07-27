@@ -31,6 +31,6 @@ export function RestrictionSchedule({
     case "emission_label_zone":
       return <EmissionZoneCard payload={payload as EmissionLabelZonePayload} locale={locale} t={t} />;
     case "congestion_charge":
-      return <CongestionChargeCard payload={payload as CongestionChargePayload} locale={locale} />;
+      return <CongestionChargeCard payload={payload as CongestionChargePayload} locale={locale} t={t} />;
   }
 }

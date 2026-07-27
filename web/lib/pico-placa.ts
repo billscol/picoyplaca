@@ -7,6 +7,12 @@ export interface ContactChannels {
   email?: string;
 }
 
+export interface LegalInfo {
+  fine_value?: string;
+  consequence?: string;
+  citation?: string;
+}
+
 export interface City {
   slug: string;
   city_name: string;
@@ -16,6 +22,7 @@ export interface City {
   restriction_model: RestrictionModel;
   timezone?: string;
   contact_channels?: ContactChannels | null;
+  legal_info?: LegalInfo | null;
 }
 
 export interface HourRange {
@@ -69,13 +76,18 @@ export interface EmissionLabelZonePayload {
   allowed_labels?: string[];
   hours: HourRange;
   exempt_days?: string[];
+  /** Matiz que no cabe en los campos estructurados (ej. excepcion para residentes empadronados). */
+  note?: string;
 }
 
 export interface CongestionChargePayload {
   zone_name: string;
-  fee_usd: number;
+  fee: number;
+  currency: string;
   hours: HourRange;
   exempt_days?: string[];
+  /** Matiz que no cabe en los campos estructurados (ej. tarifa reducida fuera de horario pico). */
+  note?: string;
 }
 
 export type RulePayload = PlateDigitDayPayload | EmissionLabelZonePayload | CongestionChargePayload;
@@ -94,21 +106,43 @@ export interface CityRuleResponse {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+const API_TIMEOUT_MS = 5000;
 
 export async function getCities(): Promise<City[]> {
-  const res = await fetch(`${API_BASE}/pico-placa/cities`, { next: { revalidate: 3600 } });
-  if (!res.ok) return [];
-  const json = await res.json();
-  return json.data ?? [];
+  try {
+    const res = await fetch(`${API_BASE}/pico-placa/cities`, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(API_TIMEOUT_MS),
+    });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.data ?? [];
+  } catch {
+    return [];
+  }
 }
 
 export function findParticularesCategory(payload: PlateDigitDayPayload): PlateCategory | undefined {
   return payload.categories.find((c) => c.key === "particulares") ?? payload.categories[0];
 }
 
+/** Extracts the restriction digit from a plate string (e.g. "ABC123" -> 3, or 1 with position "first"). */
+export function extractPlateDigit(plate: string, position: "first" | "last" = "last"): number | null {
+  const digits = plate.match(/\d/g);
+  if (!digits || digits.length === 0) return null;
+  return Number(position === "first" ? digits[0] : digits[digits.length - 1]);
+}
+
 export async function getCityRule(slug: string): Promise<CityRuleResponse | null> {
-  const res = await fetch(`${API_BASE}/pico-placa/rules/${slug}`, { next: { revalidate: 3600 } });
-  if (!res.ok) return null;
-  const json = await res.json();
-  return json.data ?? null;
+  try {
+    const res = await fetch(`${API_BASE}/pico-placa/rules/${slug}`, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(API_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data ?? null;
+  } catch {
+    return null;
+  }
 }

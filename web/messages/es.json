@@ -3,6 +3,18 @@
     "title": "Pico y Placa Global — Consulta restricciones vehiculares",
     "description": "Consulta pico y placa, zonas de bajas emisiones y peajes de congestion en LatAm, USA y España."
   },
+  "city_not_found": {
+    "title": "No encontramos esa ciudad",
+    "body": "Puede que el enlace esté mal escrito o que aún no cubramos esa ciudad. Explora las ciudades disponibles a continuación.",
+    "cta_cities": "Ver ciudades disponibles",
+    "cta_home": "Volver al inicio"
+  },
+  "error_boundary": {
+    "title": "Algo salió mal",
+    "body": "No pudimos cargar esta página. Puede ser un problema temporal de conexión — intenta de nuevo en un momento.",
+    "retry": "Reintentar",
+    "cta_home": "Volver al inicio"
+  },
   "nav": {
     "home": "Inicio",
     "cities": "Ciudades",
@@ -10,21 +22,38 @@
     "docs": "Documentacion",
     "login": "Iniciar sesion",
     "register": "Crear cuenta",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "menu": "Menú"
   },
   "hero": {
     "eyebrow": "Información basada en fuentes oficiales",
     "title": "Restricciones vehiculares de LatAm, USA y España en una sola API",
     "subtitle": "Pico y placa, zonas de bajas emisiones (ZBE) y peajes de congestion, con datos basados en fuentes oficiales de cada ciudad.",
     "cta_primary": "Ver ciudades disponibles",
-    "cta_secondary": "Documentacion de la API"
+    "cta_secondary": "Documentacion de la API",
+    "stats": {
+      "cities_label": "Ciudades",
+      "models_label": "Modelos",
+      "verified_label": "Verificado"
+    }
+  },
+  "finder": {
+    "city_label": "Ciudad",
+    "city_placeholder": "Escribe tu ciudad",
+    "city_empty": "No encontramos esa ciudad en nuestra cobertura.",
+    "city_editable_hint": "Detectamos tu ciudad automáticamente — puedes cambiarla.",
+    "category_label": "Tipo de vehículo",
+    "plate_label": "Placa",
+    "plate_placeholder": "ABC123",
+    "submit": "Consultar",
+    "other_model_hint": "Esta ciudad no usa dígito de placa — te llevamos directo a su información."
   },
   "how_it_works": {
     "title": "Un solo modelo de datos, tres tipos de restricción",
     "subtitle": "Cada ciudad se modela según su propio esquema de restricción vehicular.",
-    "plate_digit_day_desc": "Circulación restringida según el último dígito de la placa, por día y horario. El modelo clásico de pico y placa en LatAm.",
-    "emission_label_zone_desc": "Zonas donde solo pueden circular vehículos con determinada etiqueta ambiental, como las ZBE españolas.",
-    "congestion_charge_desc": "Peaje por circular dentro de una zona en horario definido, independiente de la placa o etiqueta del vehículo."
+    "plate_digit_day_desc": "Restricción por último dígito de placa, día y horario.",
+    "emission_label_zone_desc": "Solo circulan vehículos con etiqueta ambiental permitida.",
+    "congestion_charge_desc": "Peaje por entrar a la zona en horario definido."
   },
   "cities_section": {
     "title": "Ciudades disponibles",
@@ -52,6 +81,15 @@
       "description": "Explora el pico y placa, las zonas de bajas emisiones y los peajes de congestión vigentes por ciudad en LatAm, USA y España."
     }
   },
+  "country_hub": {
+    "meta_title": "Restricciones vehiculares en {country}: {count} ciudades",
+    "meta_description": "Consulta el pico y placa, la zona de bajas emisiones o el peaje de congestión vigente en {cities}, {country}.",
+    "title": "Restricciones vehiculares en {country}",
+    "intro": "{country} tiene {count} ciudades con datos de restricción vehicular en Pico y Placa Global ({models}). Elige tu ciudad para ver el detalle vigente, horarios y excepciones.",
+    "faq_title": "Preguntas frecuentes sobre {country}",
+    "faq_cities_question": "¿Qué ciudades de {country} cubre Pico y Placa Global?",
+    "faq_cities_answer": "Actualmente cubrimos {cities} en {country}. Cada ciudad tiene su propia página con el detalle vigente, horarios, excepciones y fuente oficial."
+  },
   "city_page": {
     "meta": {
       "title_active": "Pico y placa en {city} hoy: días, dígitos y horario",
@@ -67,6 +105,9 @@
       "last_verified": "Última verificación: {date}",
       "effective_from": "Vigente desde {date}",
       "source_link": "Ver fuente oficial",
+      "restriction_details_title": "Detalle de la restricción",
+      "upcoming_days_title": "Próximos 7 días",
+      "upcoming_days_hint": "Dígitos restringidos ese día, en el horario {hours}.",
       "schedule_title": "Zonas y horario de pico y placa",
       "exceptions_title": "Vehículos exceptuados",
       "holidays_suspended": "No aplica en días festivos.",
@@ -93,10 +134,7 @@
     },
     "legal": {
       "title": "Sanciones",
-      "fine_label": "Multa",
-      "fine_value": "15 SMLDV",
-      "consequence": "Inmovilización del vehículo",
-      "citation": "Art. 131-C.14, Ley 769 de 2002 (mod. art. 21, Ley 1383 de 2010)."
+      "fine_label": "Multa"
     },
     "contact": {
       "title": "Canales oficiales",
@@ -111,7 +149,8 @@
     "region": {
       "title": "Ubicación",
       "body": "{city} — {region}, {country}",
-      "siblings_title": "Otras ciudades con esta misma medida"
+      "siblings_title": "Otras ciudades con esta misma medida",
+      "see_country_hub": "Ver todas las ciudades de {country}"
     },
     "lookup": {
       "title": "¿Cuándo tengo pico y placa?",
@@ -119,7 +158,12 @@
       "subtitle_first": "Elige el primer dígito de tu placa",
       "free_headline": "Puedes circular sin restricción",
       "digit_label": "Placa terminada en {digit}",
-      "placeholder": "Selecciona un dígito para ver tu horario."
+      "placeholder": "Selecciona un dígito para ver tu horario.",
+      "result_for": "Resultado para la placa {plate}"
+    },
+    "rotating_notice": {
+      "title": "Pico y placa para {category} — placa {plate}",
+      "body": "Esta categoría no usa un dígito fijo por día; la restricción rota periódicamente. Estas son las reglas vigentes:"
     },
     "plate_digit_day": {
       "intro_active": "En {city}, el pico y placa restringe la circulación de vehículos particulares según el último dígito de la placa. Actualmente los vehículos con placa terminada en {digitsToday} no pueden circular los días {days}, entre las {hours}.",
@@ -139,6 +183,8 @@
       "none_note": "La restricción para vehículos particulares fue eliminada. Consulta la fuente oficial para conocer el detalle de la norma vigente."
     },
     "emission_label_zone": {
+      "meta_title": "Zona de bajas emisiones en {city}: etiquetas restringidas y horario",
+      "meta_description": "¿Puede circular tu vehículo por la zona de bajas emisiones de {city}? Consulta las etiquetas ambientales restringidas, el horario y las excepciones vigentes en {zoneName}.",
       "intro": "{city} aplica una zona de bajas emisiones ({zoneName}): los vehículos con etiqueta {restrictedLabels} no pueden circular dentro de la zona, de {hours}.",
       "faq_labels_question": "¿Qué etiquetas ambientales están restringidas en {zoneName}, {city}?",
       "faq_labels_answer": "No pueden circular los vehículos con etiqueta {restrictedLabels}. Sí pueden hacerlo los vehículos con etiqueta {allowedLabels}.",
@@ -146,6 +192,8 @@
       "faq_hours_answer": "La restricción rige de {hours}."
     },
     "congestion_charge": {
+      "meta_title": "Peaje de congestión en {city}: tarifa y horario",
+      "meta_description": "¿Cuánto cuesta circular por la zona de congestión de {city}? Consulta la tarifa, el horario y las condiciones vigentes en {zoneName}.",
       "intro": "{city} cobra un peaje de congestión de {fee} en la zona {zoneName}, vigente de {hours}.",
       "faq_fee_question": "¿Cuánto cuesta el peaje de congestión en {city}?",
       "faq_fee_answer": "El peaje de congestión en {zoneName}, {city}, cuesta {fee}, de {hours}."
@@ -154,13 +202,29 @@
       "question": "¿Esta información aplica a motos y taxis?",
       "answer": "No necesariamente — estos datos cubren vehículos particulares. Motocicletas, taxis y vehículos de servicio público suelen tener horarios y excepciones distintos; confirma siempre con la fuente oficial de {city}."
     },
+    "freshness": {
+      "question": "¿Desde cuándo rige esta información y qué tan seguido se actualiza?",
+      "answer": "Esta información rige desde el {date}. Revisamos periódicamente la fuente oficial de {city} y los cambios pasan por revisión antes de publicarse — usa el enlace a la fuente oficial de esta página para confirmar cualquier actualización reciente."
+    },
+    "legal_faq": {
+      "question": "¿Cuánto es la multa por incumplir esta restricción en {city}?",
+      "answer": "La multa en {city} es de {fine}. Verifica el valor vigente en la fuente oficial, ya que puede actualizarse.",
+      "answer_with_consequence": "La multa en {city} es de {fine}. Además, la consecuencia registrada es: {consequence}. Verifica el valor y las condiciones vigentes en la fuente oficial."
+    },
     "exceptions": {
       "electric": "vehículos eléctricos",
       "hybrid": "vehículos híbridos",
       "motorcycle": "motocicletas",
       "cng": "vehículos a gas natural vehicular (GNV)",
       "public_service": "vehículos de servicio público",
-      "disability": "vehículos con conductores o pasajeros con discapacidad"
+      "disability": "vehículos con conductores o pasajeros con discapacidad",
+      "elderly": "vehículos de personas de la tercera edad",
+      "diplomatic": "vehículos oficiales y del cuerpo diplomático",
+      "emergency": "vehículos de emergencia",
+      "public_transport": "transporte público",
+      "rental": "vehículos de alquiler",
+      "fresh_concrete": "vehículos que transportan concreto fresco",
+      "school_transport": "transporte escolar autorizado"
     }
   },
   "faq": {
@@ -190,6 +254,10 @@
     ]
   },
   "pricing": {
+    "meta": {
+      "title": "Planes y precios de la API",
+      "description": "Compara los planes de la API de Pico y Placa Global: cuota de requests, limite por minuto y precio mensual de cada nivel."
+    },
     "title": "Planes",
     "subtitle": "Consultas gratis para empezar, escala cuando lo necesites.",
     "month": "/mes",
@@ -197,7 +265,24 @@
     "featured": "Más popular",
     "unlimited_requests": "Requests ilimitados",
     "requests_per_month": "{count} requests/mes",
-    "requests_per_minute": "{count} req/min"
+    "requests_per_minute": "{count} req/min",
+    "faq": {
+      "title": "Preguntas frecuentes de la API",
+      "items": [
+        {
+          "question": "¿Qué incluye la API?",
+          "answer": "Tres endpoints REST: listado de ciudades cubiertas, el detalle de la regla vigente por ciudad (horarios, dígitos, excepciones) y una consulta directa para verificar si una placa específica tiene restricción."
+        },
+        {
+          "question": "¿Cómo empiezo a usar la API?",
+          "answer": "Crea una cuenta gratuita, genera una API key desde tu panel y agrégala como header de autenticación en tus solicitudes. El plan gratuito incluye una cuota mensual para probar la integración antes de escalar."
+        },
+        {
+          "question": "¿En qué formato responde la API?",
+          "answer": "Todas las respuestas son JSON sobre HTTPS, con la misma estructura de datos que consume este sitio web."
+        }
+      ]
+    }
   },
   "auth": {
     "login_title": "Iniciar sesion",

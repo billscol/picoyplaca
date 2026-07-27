@@ -54,20 +54,20 @@ export function CityFilterGrid({
               className="group animate-in fade-in slide-in-from-bottom-4 fill-mode-both duration-500"
               style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}
             >
-              <Card className="card-hover-lift h-full border-border p-2">
+              <Card className="card-hover-lift h-full border-2 border-foreground/8 p-2">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <span
                       className={cn(
-                        "flex size-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+                        "flex size-13 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110",
                         MODEL_CHIP_CLASS[city.restriction_model]
                       )}
                     >
-                      <Icon className="size-5" />
+                      <Icon className="size-6" />
                     </span>
                     <ArrowUpRight className="size-4 text-muted-foreground opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
                   </div>
-                  <CardTitle className="mt-3 text-base">{city.city_name}</CardTitle>
+                  <CardTitle className="mt-3 text-base font-bold">{city.city_name}</CardTitle>
                   <CardDescription>{city.country_name}</CardDescription>
                   <Badge variant="secondary" className="mt-2 w-fit">
                     {modelLabels[city.restriction_model]}

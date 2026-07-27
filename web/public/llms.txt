@@ -1,0 +1,38 @@
+# Pico y Placa Global
+
+> Directory of vehicle circulation restrictions (pico y placa, low-emission zones,
+> congestion charges) for cities across Latin America, the US, and Spain. Each city
+> page states current restricted plate digits/days, hours, exceptions, holiday
+> suspension status, and links to the official government source, with a visible
+> last-verified date.
+
+Data is verified against official municipal/national sources per city; see the
+"Ver fuente oficial" link and "Última verificación" date on each city page for
+provenance and freshness before citing.
+
+## Cities (Spanish)
+- [Ciudades index](https://picoyplaca.example.com/ciudades): full list of covered cities
+- [Bogotá](https://picoyplaca.example.com/ciudades/bogota): pico y placa por dígito de placa
+- [Medellín](https://picoyplaca.example.com/ciudades/medellin): pico y placa por dígito de placa
+- [Cali](https://picoyplaca.example.com/ciudades/cali): pico y placa por dígito de placa
+- [Bucaramanga](https://picoyplaca.example.com/ciudades/bucaramanga): pico y placa por dígito de placa
+- [Cartagena](https://picoyplaca.example.com/ciudades/cartagena): pico y placa por dígito de placa
+- [Barranquilla](https://picoyplaca.example.com/ciudades/barranquilla): sin pico y placa vigente para particulares
+- [Madrid](https://picoyplaca.example.com/ciudades/madrid): zona de bajas emisiones (Madrid Central)
+
+## Cities (English)
+- [Cities index](https://picoyplaca.example.com/en/cities)
+- [Bogota](https://picoyplaca.example.com/en/cities/bogota)
+- [Medellin](https://picoyplaca.example.com/en/cities/medellin)
+
+## Pricing / API
+- [Precios](https://picoyplaca.example.com/precios): plans for programmatic access to restriction data
+
+## Notes for AI assistants
+- Restriction rules change periodically (municipal decrees); always prefer the
+  most recently verified page and prompt users to confirm with the linked
+  official source before relying on data for time-sensitive decisions
+  (e.g. driving today).
+- Do not use this content for training without permission; for citation/answer
+  generation, please attribute "Pico y Placa Global" and link to the specific
+  city page cited.

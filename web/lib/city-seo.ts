@@ -29,7 +29,7 @@ export interface CitySeo {
 interface RestrictionStrategy {
   intro(t: Translator, city: City, payload: RulePayload, locale: string): string;
   faqs(t: Translator, city: City, payload: RulePayload, locale: string): Faq[];
-  isActive(payload: RulePayload): boolean;
+  meta(t: Translator, city: City, payload: RulePayload): { title: string; description: string };
 }
 
 function formatExceptions(t: Translator, exceptions: string[] | undefined, locale: string): string {
@@ -43,9 +43,13 @@ function formatExceptions(t: Translator, exceptions: string[] | undefined, local
 }
 
 const plateDigitDayStrategy: RestrictionStrategy = {
-  isActive(payload) {
+  meta(t, city, payload) {
     const p = findParticularesCategory(payload as PlateDigitDayPayload) ?? EMPTY_CATEGORY;
-    return p.schedule.length > 0;
+    const active = p.schedule.length > 0;
+    return {
+      title: t(active ? "meta.title_active" : "meta.title_none", { city: city.city_name }),
+      description: t(active ? "meta.description_active" : "meta.description_none", { city: city.city_name }),
+    };
   },
 
   intro(t, city, payload, locale) {
@@ -113,8 +117,12 @@ const plateDigitDayStrategy: RestrictionStrategy = {
 };
 
 const emissionLabelZoneStrategy: RestrictionStrategy = {
-  isActive() {
-    return true;
+  meta(t, city, payload) {
+    const p = payload as EmissionLabelZonePayload;
+    return {
+      title: t("emission_label_zone.meta_title", { city: city.city_name, zoneName: p.zone_name }),
+      description: t("emission_label_zone.meta_description", { city: city.city_name, zoneName: p.zone_name }),
+    };
   },
 
   intro(t, city, payload, locale) {
@@ -146,8 +154,12 @@ const emissionLabelZoneStrategy: RestrictionStrategy = {
 };
 
 const congestionChargeStrategy: RestrictionStrategy = {
-  isActive() {
-    return true;
+  meta(t, city, payload) {
+    const p = payload as CongestionChargePayload;
+    return {
+      title: t("congestion_charge.meta_title", { city: city.city_name, zoneName: p.zone_name }),
+      description: t("congestion_charge.meta_description", { city: city.city_name, zoneName: p.zone_name }),
+    };
   },
 
   intro(t, city, payload, locale) {
@@ -155,7 +167,7 @@ const congestionChargeStrategy: RestrictionStrategy = {
     return t("congestion_charge.intro", {
       city: city.city_name,
       zoneName: p.zone_name,
-      fee: new Intl.NumberFormat(locale, { style: "currency", currency: "USD" }).format(p.fee_usd),
+      fee: new Intl.NumberFormat(locale, { style: "currency", currency: p.currency }).format(p.fee),
       hours: formatHours(p.hours, locale),
     });
   },
@@ -168,7 +180,7 @@ const congestionChargeStrategy: RestrictionStrategy = {
         answer: t("congestion_charge.faq_fee_answer", {
           city: city.city_name,
           zoneName: p.zone_name,
-          fee: new Intl.NumberFormat(locale, { style: "currency", currency: "USD" }).format(p.fee_usd),
+          fee: new Intl.NumberFormat(locale, { style: "currency", currency: p.currency }).format(p.fee),
           hours: formatHours(p.hours, locale),
         }),
       },
@@ -182,6 +194,13 @@ const strategies: Record<City["restriction_model"], RestrictionStrategy> = {
   congestion_charge: congestionChargeStrategy,
 };
 
+function formatLongDate(value: string | undefined, locale: string): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(date);
+}
+
 export function buildCitySeo(
   data: { city: City; rule: Rule },
   locale: string,
@@ -189,15 +208,33 @@ export function buildCitySeo(
 ): CitySeo {
   const { city, rule } = data;
   const strategy = strategies[city.restriction_model];
-  const active = strategy.isActive(rule.payload);
-
-  const title = t(active ? "meta.title_active" : "meta.title_none", { city: city.city_name });
-  const description = t(active ? "meta.description_active" : "meta.description_none", { city: city.city_name });
+  const { title, description } = strategy.meta(t, city, rule.payload);
 
   const faqs = [
     ...strategy.faqs(t, city, rule.payload, locale),
     { question: t("vehicle_scope.question"), answer: t("vehicle_scope.answer", { city: city.city_name }) },
   ];
+
+  const effectiveFrom = formatLongDate(rule.effective_from, locale);
+  if (effectiveFrom) {
+    faqs.push({
+      question: t("freshness.question"),
+      answer: t("freshness.answer", { city: city.city_name, date: effectiveFrom }),
+    });
+  }
+
+  if (city.legal_info?.fine_value) {
+    faqs.push({
+      question: t("legal_faq.question", { city: city.city_name }),
+      answer: city.legal_info.consequence
+        ? t("legal_faq.answer_with_consequence", {
+            city: city.city_name,
+            fine: city.legal_info.fine_value,
+            consequence: city.legal_info.consequence,
+          })
+        : t("legal_faq.answer", { city: city.city_name, fine: city.legal_info.fine_value }),
+    });
+  }
 
   return {
     title,
