@@ -28,6 +28,12 @@ class PicoPlacaScrapeJob extends BaseJob
 {
     private const AUTO_APPROVE_CONFIDENCE = 0.9;
 
+    /** Idioma de busqueda por country_code — el resto de LATAM/Espana cae en 'es' por defecto. */
+    private const LANGUAGE_BY_COUNTRY = [
+        'US' => 'en',
+        'BR' => 'pt',
+    ];
+
     public function handle(array $payload): void
     {
         $cityId = (int) ($payload['city_id'] ?? 0);
@@ -51,7 +57,7 @@ class PicoPlacaScrapeJob extends BaseJob
 
         $searchResults = [];
         if (($_ENV['DATAFORSEO_LOGIN'] ?? getenv('DATAFORSEO_LOGIN')) && ($_ENV['DATAFORSEO_PASSWORD'] ?? getenv('DATAFORSEO_PASSWORD'))) {
-            $query = "pico y placa restriccion vehicular {$city['city_name']} {$city['country_name']} " . date('Y') . " vigente";
+            $query = $this->buildSearchQuery($city['city_name'], $city['country_name'], $city['country_code'], $city['restriction_model']);
             try {
                 $searchResults = (new DataForSeoSearchProvider())->search($query, 5);
             } catch (\Throwable $e) {
@@ -107,6 +113,37 @@ class PicoPlacaScrapeJob extends BaseJob
     {
         ksort($payload);
         return json_encode($payload, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * La terminologia de busqueda depende del modelo (pico y placa / ZBE / peaje de
+     * congestion NO son sinonimos) y el idioma depende del pais — buscar "pico y placa"
+     * en Madrid o "congestion pricing" en Bogota no trae resultados utiles.
+     */
+    private function buildSearchQuery(string $cityName, string $countryName, string $countryCode, string $restrictionModel): string
+    {
+        $year     = date('Y');
+        $language = self::LANGUAGE_BY_COUNTRY[$countryCode] ?? 'es';
+
+        $templates = [
+            'es' => [
+                'plate_digit_day'     => "pico y placa restriccion vehicular {$cityName} {$countryName} {$year} vigente",
+                'emission_label_zone' => "zona de bajas emisiones ZBE {$cityName} {$countryName} etiqueta ambiental restriccion {$year}",
+                'congestion_charge'   => "peaje de congestion {$cityName} {$countryName} tarifa zona horario {$year}",
+            ],
+            'en' => [
+                'plate_digit_day'     => "license plate driving restriction {$cityName} {$countryName} {$year} current rules",
+                'emission_label_zone' => "low emission zone {$cityName} {$countryName} restriction {$year}",
+                'congestion_charge'   => "congestion pricing {$cityName} {$countryName} fee zone hours {$year}",
+            ],
+            'pt' => [
+                'plate_digit_day'     => "rodizio restricao de veiculos placa {$cityName} {$countryName} {$year} vigente",
+                'emission_label_zone' => "zona de baixas emissoes {$cityName} {$countryName} restricao {$year}",
+                'congestion_charge'   => "pedagio de congestionamento {$cityName} {$countryName} tarifa horario {$year}",
+            ],
+        ];
+
+        return $templates[$language][$restrictionModel] ?? $templates['es']['plate_digit_day'];
     }
 
     /**

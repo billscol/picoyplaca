@@ -51,10 +51,11 @@ No prohibe circular, cobra una tarifa por entrar a la zona en horario tarifado (
 ```json
 {
   "restricted": true,
-  "reason": "Aplica tarifa de congestion en Manhattan CBD ($9 USD)",
+  "reason": "Aplica tarifa de congestion en Manhattan CBD (9 USD)",
   "details": {
     "zone_name": "Manhattan CBD",
-    "fee_usd": 9,
+    "fee": 9,
+    "currency": "USD",
     "hours": { "start": "05:00", "end": "21:00" }
   }
 }

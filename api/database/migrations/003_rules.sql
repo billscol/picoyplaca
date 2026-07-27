@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS cities (
 -- payload cambia de forma segun restriction_model:
 --   plate_digit_day:     {"schedule":[{"day":"monday","digits":[1,2],"hours":{"start":"06:00","end":"20:00"}}],"exceptions":["electric"],"holidays_suspended":true}
 --   emission_label_zone: {"zone_name":"Madrid Central","restricted_labels":["B"],"hours":{"start":"00:00","end":"23:59"}}
---   congestion_charge:   {"zone_name":"...","fee_usd":9,"hours":{"start":"05:00","end":"21:00"},"exempt_days":["saturday","sunday"]}
+--   congestion_charge:   {"zone_name":"...","fee":9,"currency":"USD","hours":{"start":"05:00","end":"21:00"},"exempt_days":["saturday","sunday"]}
 CREATE TABLE IF NOT EXISTS rules (
     id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     city_id        INT UNSIGNED NOT NULL,

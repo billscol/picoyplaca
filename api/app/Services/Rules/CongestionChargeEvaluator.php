@@ -18,15 +18,17 @@ class CongestionChargeEvaluator implements RuleEvaluatorInterface
 
         $exemptDays = array_map('strtolower', $payload['exempt_days'] ?? []);
         $applies    = !in_array($dayName, $exemptDays, true);
+        $currency   = $payload['currency'] ?? 'USD';
 
         return [
             'restricted' => $applies,
             'reason'     => $applies
-                ? "Aplica tarifa de congestion en {$payload['zone_name']} (\${$payload['fee_usd']} USD)"
+                ? "Aplica tarifa de congestion en {$payload['zone_name']} ({$payload['fee']} {$currency})"
                 : "Sin tarifa de congestion los {$dayName}",
             'details' => [
                 'zone_name' => $payload['zone_name'] ?? null,
-                'fee_usd'   => $payload['fee_usd'] ?? null,
+                'fee'       => $payload['fee'] ?? null,
+                'currency'  => $currency,
                 'hours'     => $payload['hours'] ?? null,
             ],
         ];

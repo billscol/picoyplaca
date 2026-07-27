@@ -16,7 +16,7 @@ class CityRepository
     }
 
     private const CATALOG_COLUMNS = "id, country_code, country_name, region, city_name, slug, timezone,
-             restriction_model, contact_channels";
+             restriction_model, contact_channels, legal_info";
 
     public function findBySlug(string $slug): ?array
     {
@@ -63,6 +63,9 @@ class CityRepository
         }
         $row['contact_channels'] = isset($row['contact_channels'])
             ? json_decode((string) $row['contact_channels'], true)
+            : null;
+        $row['legal_info'] = isset($row['legal_info'])
+            ? json_decode((string) $row['legal_info'], true)
             : null;
         return $row;
     }

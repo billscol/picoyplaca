@@ -140,7 +140,8 @@ JSON,
     "restricted_labels": ["sin etiqueta"],
     "allowed_labels": ["B","C","ECO","0"],
     "hours": {"start":"00:00","end":"23:59"},
-    "exempt_days": ["sunday"]
+    "exempt_days": ["sunday"],
+    "note": "<opcional — solo si hay una excepcion o matiz importante que no cabe en los campos anteriores, ej. excepcion para residentes empadronados. Omite este campo si no aplica.>"
   },
   "confidence": 0.0,
   "summary": "",
@@ -151,9 +152,11 @@ JSON,
 {
   "payload": {
     "zone_name": "",
-    "fee_usd": 0,
+    "fee": 0,
+    "currency": "<codigo ISO 4217 real, ej. USD, EUR, COP>",
     "hours": {"start":"05:00","end":"21:00"},
-    "exempt_days": ["saturday","sunday"]
+    "exempt_days": ["saturday","sunday"],
+    "note": "<opcional — solo si hay una tarifa/horario distinto no cubierto arriba (ej. tarifa reducida fuera de pico), omite si no aplica.>"
   },
   "confidence": 0.0,
   "summary": "",

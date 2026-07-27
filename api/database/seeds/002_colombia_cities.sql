@@ -20,7 +20,7 @@
 --                 (7-9am y 6-8pm) — requiere que PlateDigitDayEvaluator soporte `hours` como array.
 
 INSERT INTO cities (country_code, country_name, city_name, slug, timezone, restriction_model, is_active) VALUES
-    ('CO', 'Colombia', 'Medellin',     'medellin',     'America/Bogota', 'plate_digit_day', 1),
+    ('CO', 'Colombia', 'Medellín',     'medellin',     'America/Bogota', 'plate_digit_day', 1),
     ('CO', 'Colombia', 'Cali',         'cali',         'America/Bogota', 'plate_digit_day', 1),
     ('CO', 'Colombia', 'Barranquilla', 'barranquilla', 'America/Bogota', 'plate_digit_day', 1),
     ('CO', 'Colombia', 'Bucaramanga',  'bucaramanga',  'America/Bogota', 'plate_digit_day', 1),

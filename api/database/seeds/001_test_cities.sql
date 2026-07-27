@@ -3,8 +3,8 @@
 -- Madrid = modelo emission_label_zone (ZBE / etiqueta DGT).
 
 INSERT INTO cities (country_code, country_name, city_name, slug, timezone, restriction_model, is_active) VALUES
-    ('CO', 'Colombia', 'Bogota', 'bogota', 'America/Bogota', 'plate_digit_day', 1),
-    ('ES', 'Espana',   'Madrid', 'madrid', 'Europe/Madrid',  'emission_label_zone', 1)
+    ('CO', 'Colombia', 'Bogotá', 'bogota', 'America/Bogota', 'plate_digit_day', 1),
+    ('ES', 'España',   'Madrid', 'madrid', 'Europe/Madrid',  'emission_label_zone', 1)
 ON DUPLICATE KEY UPDATE city_name = VALUES(city_name);
 
 INSERT INTO rules (city_id, payload_json, effective_from, is_current, source_url)
