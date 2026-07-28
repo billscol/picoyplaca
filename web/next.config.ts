@@ -19,6 +19,17 @@ const csp = [
   "frame-ancestors 'none'",
 ].join("; ");
 
+// /widget/[slug] is an embeddable iframe snippet meant to be framed by third-party
+// sites. X-Frame-Options has no valid "allow all" value (only DENY/SAMEORIGIN), so it
+// can't be overridden permissive — it must be absent entirely, which means the general
+// security-headers block below must not match widget paths at all.
+const widgetCsp = [
+  "default-src 'self'",
+  "img-src 'self' data:",
+  "style-src 'self' 'unsafe-inline'",
+  "frame-ancestors *",
+].join("; ");
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   env: {
@@ -27,13 +38,22 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/((?!widget/|en/widget/).*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Content-Security-Policy-Report-Only", value: csp },
+        ],
+      },
+      {
+        source: "/:locale(en)?/widget/:slug*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Content-Security-Policy-Report-Only", value: widgetCsp },
         ],
       },
     ];

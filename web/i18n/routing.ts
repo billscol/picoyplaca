@@ -10,6 +10,8 @@ export const routing = defineRouting({
     "/ciudades": { es: "/ciudades", en: "/cities" },
     "/ciudades/[slug]": { es: "/ciudades/[slug]", en: "/cities/[slug]" },
     "/ciudades/pais/[country]": { es: "/ciudades/pais/[country]", en: "/cities/country/[country]" },
+    "/blog": { es: "/blog", en: "/blog" },
+    "/blog/[slug]": { es: "/blog/[slug]", en: "/blog/[slug]" },
     "/login": { es: "/login", en: "/login" },
     "/register": { es: "/registro", en: "/register" },
     "/dashboard": { es: "/dashboard", en: "/dashboard" },

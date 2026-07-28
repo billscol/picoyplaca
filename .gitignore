@@ -17,3 +17,4 @@ out/
 *.log
 .env
 .claude/settings.local.json
+.claude/worktrees/

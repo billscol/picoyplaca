@@ -20,6 +20,7 @@
     "cities": "Cities",
     "pricing": "Pricing",
     "docs": "Docs",
+    "blog": "Blog",
     "login": "Log in",
     "register": "Sign up",
     "dashboard": "Dashboard",
@@ -80,6 +81,22 @@
       "title": "Cities with plate restrictions, low emission zones and congestion charges",
       "description": "Explore current plate-based restrictions, low emission zones and congestion charges by city across LatAm, USA and Spain."
     }
+  },
+  "widget": {
+    "restricted_digits": "Plates ending in {digits} can't drive today, {hours}.",
+    "free_today": "No restriction today.",
+    "no_restriction": "No active pico y placa.",
+    "check_status": "Check current status.",
+    "attribution": "Data by Pico y Placa Global →",
+    "embed_title": "Embed this status on your site",
+    "embed_hint": "Copy and paste this code wherever you want to show {city}'s real-time status.",
+    "embed_copy": "Copy code"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guides on pico y placa, low emission zones and congestion charges.",
+    "meta_title": "Pico y Placa Global blog — guides and updates",
+    "meta_description": "Guides on pico y placa, exemptions, fines and vehicle restrictions across Colombia and more countries."
   },
   "country_hub": {
     "meta_title": "Vehicle restrictions in {country}: {count} cities",

@@ -3,6 +3,7 @@ import { routing } from "@/i18n/routing";
 import { getPathname } from "@/navigation";
 import { getCities, getCityRule } from "@/lib/pico-placa";
 import { slugifyCountry } from "@/lib/country-slug";
+import { getAllPosts } from "@/lib/blog";
 
 const MIN_CITIES_FOR_HUB = 2;
 
@@ -16,7 +17,7 @@ function withDefaultLocale(languages: Record<string, string>): Record<string, st
 }
 
 function buildStaticEntries(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/ciudades", "/precios"] as const;
+  const staticPaths = ["/", "/ciudades", "/precios", "/blog"] as const;
   return staticPaths.map((path) => {
     const languages: Record<string, string> = {};
     for (const locale of routing.locales) {
@@ -32,8 +33,25 @@ function buildStaticEntries(): MetadataRoute.Sitemap {
   });
 }
 
+function buildBlogEntries(): MetadataRoute.Sitemap {
+  return getAllPosts().map((post) => {
+    const href = { pathname: "/blog/[slug]", params: { slug: post.slug } } as const;
+    const languages: Record<string, string> = {};
+    for (const locale of routing.locales) {
+      languages[locale] = `${siteUrl}${getPathname({ locale, href })}`;
+    }
+    return {
+      url: `${siteUrl}${getPathname({ locale: routing.defaultLocale, href })}`,
+      lastModified: new Date(post.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages: withDefaultLocale(languages) },
+    };
+  });
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticEntries = buildStaticEntries();
+  const staticEntries = [...buildStaticEntries(), ...buildBlogEntries()];
 
   try {
     const cities = await getCities();

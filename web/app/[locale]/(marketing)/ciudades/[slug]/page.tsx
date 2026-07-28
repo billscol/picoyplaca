@@ -15,6 +15,7 @@ import { PlateDigitLookup } from "@/components/marketing/plate-digit-lookup";
 import { PlateCategoryNotice } from "@/components/marketing/plate-category-notice";
 import { TodayStatus } from "@/components/marketing/today-status-card";
 import { UpcomingDaysStrip } from "@/components/marketing/upcoming-days-strip";
+import { EmbedWidgetSnippet } from "@/components/marketing/embed-widget-snippet";
 import { buildCitySeo, type Translator } from "@/lib/city-seo";
 import {
   findParticularesCategory,
@@ -258,6 +259,8 @@ export default async function CityDetailPage({
             <CityLegalSection legalInfo={city.legal_info} t={t} />
           </div>
         )}
+
+        <EmbedWidgetSnippet slug={slug} locale={locale} cityName={city.city_name} />
 
         <div className="mt-12">
           <div className="flex items-center gap-2.5">

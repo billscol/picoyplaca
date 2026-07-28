@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Zap, Menu, X, MapPinned, Tag, BookOpen, LogIn, UserPlus } from "lucide-react";
+import { Zap, Menu, X, MapPinned, Tag, BookOpen, Newspaper, LogIn, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,13 @@ export function Navbar() {
             >
               <Tag className="size-4" />
               {t("pricing")}
+            </Link>
+            <Link
+              href="/blog"
+              className="flex items-center gap-1.5 rounded-full px-3 py-2 font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              <Newspaper className="size-4" />
+              {t("blog")}
             </Link>
             <a
               href={docsUrl}
@@ -100,6 +107,14 @@ export function Navbar() {
             >
               <Tag className="size-4" />
               {t("pricing")}
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              <Newspaper className="size-4" />
+              {t("blog")}
             </Link>
             <a
               href={docsUrl}

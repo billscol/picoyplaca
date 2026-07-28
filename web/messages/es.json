@@ -20,6 +20,7 @@
     "cities": "Ciudades",
     "pricing": "Precios",
     "docs": "Documentacion",
+    "blog": "Blog",
     "login": "Iniciar sesion",
     "register": "Crear cuenta",
     "dashboard": "Panel",
@@ -80,6 +81,22 @@
       "title": "Ciudades con pico y placa, ZBE y peajes de congestión",
       "description": "Explora el pico y placa, las zonas de bajas emisiones y los peajes de congestión vigentes por ciudad en LatAm, USA y España."
     }
+  },
+  "widget": {
+    "restricted_digits": "Hoy no circulan placas {digits}, de {hours}.",
+    "free_today": "Hoy no hay restricción.",
+    "no_restriction": "Sin pico y placa vigente.",
+    "check_status": "Consulta el estado vigente.",
+    "attribution": "Datos de Pico y Placa Global →",
+    "embed_title": "Insertar este estado en tu sitio",
+    "embed_hint": "Copia y pega este código donde quieras mostrar el estado de {city} en tiempo real.",
+    "embed_copy": "Copiar código"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guías sobre pico y placa, zonas de bajas emisiones y peajes de congestión.",
+    "meta_title": "Blog de Pico y Placa Global — guías y actualizaciones",
+    "meta_description": "Guías sobre pico y placa, excepciones, multas y restricciones vehiculares en Colombia y más países."
   },
   "country_hub": {
     "meta_title": "Restricciones vehiculares en {country}: {count} ciudades",
